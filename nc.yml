@@ -1,0 +1,49 @@
+---
+- name: "Perform SSH/CLI based setup"
+  hosts: routers
+  connection: network_cli
+  tasks:
+    - name: "Enable NETCONF on routers"
+      ios_config:
+        commands: "netconf-yang"
+        save_when: changed
+
+    - name: "Ensure NETCONF is properly enabled"
+      ios_command:
+        commands: "show netconf-yang datastores"
+        interval: 2
+        wait_for:
+          - "result[0] contains running"
+
+- name: "Perform NETCONF management"
+  hosts: routers
+  connection: netconf
+  tasks:
+    - name: "Update VRF config with NETCONF"
+      netconf_config:
+        content: "{{ lookup('template', 'templates/vpn.j2') }}"
+
+    - name: "Get VRF config with NETCONF"
+      netconf_get:
+        source: running
+        lock: always
+        filter: "<native><vrf></vrf></native>"
+      register: nc_vrf
+
+    - name: "Format XML for easy viewing"
+      xml:
+        xmlstring: "{{ nc_vrf.stdout }}"
+        pretty_print: true
+      delegate_to: localhost
+      register: pretty_config
+      changed_when: false
+
+    - name: "Ensure vrf_configs/ folder exists"
+      file:
+        path: "{{ playbook_dir }}/vrf_configs"
+        state: directory
+
+    - name: "Write XML to disk"
+      copy:
+        content: "{{ pretty_config.xmlstring }}"
+        dest: "vrf_configs/{{ inventory_hostname }}_nc.xml"
