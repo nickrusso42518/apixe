@@ -1,33 +1,9 @@
 ---
-- name: "Perform SSH/CLI based setup"
-  hosts: routers
-  connection: network_cli
-  tasks:
-    - name: "Enable RESTCONF on routers"
-      ios_config:
-        commands: "restconf"
-        save_when: changed
-
-- name: "Perform RESTCONF management"
+- name: "PLAY 1: Infrastructure-as-code using RESTCONF"
   hosts: routers
   connection: local
   tasks:
-    - name: "Wait for RESTCONF API to respond"
-      uri:
-        url: "{{ url }}/Cisco-IOS-XE-native:hostname"
-        user: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        method: GET
-        return_content: true
-        headers:
-          Accept: 'application/yang-data+json'
-        validate_certs: false
-      register: rc_is_up
-      until: "rc_is_up.status == 200"
-      retries: 10
-      delay: 2
-
-    - name: "Update VRF config with RESTCONF"
+    - name: "TASK 1: Update VRF config with HTTP PUT"
       uri:
         url: "{{ url }}/Cisco-IOS-XE-native:vrf"
         user: "{{ ansible_user }}"
@@ -47,32 +23,6 @@
           - 204
       register: rc_result
 
-    - name: "Print HTTP status code from PUT"
+    - name: "TASK 2: Print status code from HTTP PUT"
       debug:
         msg: "Status: {{ rc_result.status }}"
-
-    - name: "Get VRF config with RESTCONF"
-      uri:
-        url: "{{ url }}/Cisco-IOS-XE-native:vrf"
-        user: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
-        method: GET
-        return_content: true
-        headers:
-          Accept: 'application/yang-data+json'
-        validate_certs: false
-      register: rc_vrf
-
-    - name: "Print HTTP status code from GET"
-      debug:
-        msg: "Status: {{ rc_vrf.status }}"
-
-    - name: "Ensure vrf_configs/ folder exists"
-      file:
-        path: "{{ playbook_dir }}/vrf_configs"
-        state: directory
-
-    - name: "Write JSON to disk"
-      copy:
-        content: "{{ rc_vrf.json | to_nice_json }}"
-        dest: "vrf_configs/{{ inventory_hostname }}_restconf.json"

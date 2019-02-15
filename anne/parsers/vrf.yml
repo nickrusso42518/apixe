@@ -8,8 +8,8 @@
 - name: "Match each VRF"
   pattern_match:
     regex: "vrf\\s+definition"
-    match_all: yes
-    match_greedy: yes
+    match_all: true
+    match_greedy: true
   register: vrf_section
 
 - name: "Match VRF components"
@@ -49,21 +49,3 @@
   export: true
   export_as: dict
   register: vrf_data
-
-        # "VPN1": {
-            # "route_export": [
-                # "65000:100"
-            # ],
-            # "route_import": [
-                # "65000:200"
-            # ]
-        # },
-        # "VPN2": {
-            # "route_export": [
-                # "65000:100"
-            # ],
-            # "route_import": [
-                # "65000:200"
-            # ]
-        # }
-# 

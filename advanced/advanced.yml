@@ -3,22 +3,22 @@
   hosts: routers
   connection: network_cli
   tasks:
-    - name: "Get router configuration"
+    - name: "TASK 1: Get router configuration"
       ios_command:
         commands: "show running-config | section ^vrf_definition"
       register: vrf_config
 
-    - name: "Parse the RT import and export data"
+    - name: "TASK 2: Parse the RT import and export data"
       set_fact:
         vrf_data: "{{ vrf_config.stdout[0] | ios_vrf_rt }}"
 
-    - name: "Use set theory to reconcile intended vs actual RT state"
+    - name: "TASK 3: Use set theory to reconcile intended vs actual RT state"
       set_fact:
         needed_vrf_changes: "{{ vrfs | rt_diff(vrf_data) }}"
 
-    - name: "Apply RT state changes"
+    - name: "TASK 4: Apply RT state changes"
       ios_config:
-        src: "vpn.j2"
+        src: "templates/vpn.j2"
         save_when: changed
       notify: config_changed
       register: cli_result

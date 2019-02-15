@@ -1,0 +1,29 @@
+---
+- name: "PLAY 1: Get VRF configuration via NETCONF"
+  hosts: routers
+  connection: netconf
+  tasks:
+    - name: "TASK 1: Get VRF config with NETCONF"
+      netconf_get:
+        source: running
+        lock: always
+        filter: "<native><vrf></vrf></native>"
+      register: nc_vrf
+
+    - name: "TASK 2: Format XML for easy viewing"
+      xml:
+        xmlstring: "{{ nc_vrf.stdout }}"
+        pretty_print: true
+      delegate_to: localhost
+      register: pretty_config
+      changed_when: false
+
+    - name: "TASK 3: Ensure vrf_configs/ folder exists"
+      file:
+        path: "{{ playbook_dir }}/vrf_configs"
+        state: directory
+
+    - name: "TASK 4: Write XML to disk"
+      copy:
+        content: "{{ pretty_config.xmlstring }}"
+        dest: "vrf_configs/{{ inventory_hostname }}_netconf.xml"
