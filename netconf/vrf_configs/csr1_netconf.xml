@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ns0:data xmlns:ns0="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns:ns1="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+  <ns1:native>
+    <ns1:vrf>
+      <ns1:definition>
+        <ns1:name>VPN1</ns1:name>
+        <ns1:description>FIRST VRF</ns1:description>
+        <ns1:rd>1:1</ns1:rd>
+        <ns1:address-family>
+          <ns1:ipv4/>
+          <ns1:ipv6/>
+        </ns1:address-family>
+        <ns1:route-target>
+          <ns1:export>
+            <ns1:asn-ip>100:3</ns1:asn-ip>
+          </ns1:export>
+          <ns1:import>
+            <ns1:asn-ip>100:1</ns1:asn-ip>
+          </ns1:import>
+        </ns1:route-target>
+      </ns1:definition>
+      <ns1:definition>
+        <ns1:name>VPN2</ns1:name>
+        <ns1:description>SECOND VRF</ns1:description>
+        <ns1:rd>2:2</ns1:rd>
+        <ns1:address-family>
+          <ns1:ipv4/>
+          <ns1:ipv6/>
+        </ns1:address-family>
+        <ns1:route-target>
+          <ns1:import>
+            <ns1:asn-ip>200:1</ns1:asn-ip>
+          </ns1:import>
+          <ns1:import>
+            <ns1:asn-ip>200:2</ns1:asn-ip>
+          </ns1:import>
+        </ns1:route-target>
+      </ns1:definition>
+    </ns1:vrf>
+  </ns1:native>
+</ns0:data>

@@ -75,4 +75,4 @@
     - name: "Write JSON to disk"
       copy:
         content: "{{ rc_vrf.json | to_nice_json }}"
-        dest: "configs/{{ inventory_hostname }}_rc.json"
+        dest: "vrf_configs/{{ inventory_hostname }}_restconf.json"

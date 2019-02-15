@@ -46,4 +46,4 @@
     - name: "Write XML to disk"
       copy:
         content: "{{ pretty_config.xmlstring }}"
-        dest: "vrf_configs/{{ inventory_hostname }}_nc.xml"
+        dest: "vrf_configs/{{ inventory_hostname }}_netconf.xml"

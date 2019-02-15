@@ -1,0 +1,30 @@
+---
+- name: "PLAY 1: Advanced-level infrastructure-as-code"
+  hosts: routers
+  connection: network_cli
+  tasks:
+    - name: "Get router configuration"
+      ios_command:
+        commands: "show running-config | section ^vrf_definition"
+      register: vrf_config
+
+    - name: "Parse the RT import and export data"
+      set_fact:
+        vrf_data: "{{ vrf_config.stdout[0] | ios_vrf_rt }}"
+
+    - name: "Use set theory to reconcile intended vs actual RT state"
+      set_fact:
+        needed_vrf_changes: "{{ vrfs | rt_diff(vrf_data) }}"
+
+    - name: "Apply RT state changes"
+      ios_config:
+        src: "vpn.j2"
+        save_when: changed
+      notify: config_changed
+      register: cli_result
+
+  handlers:
+    - name: "HANDLER 1: Display relevant changes"
+      listen: config_changed
+      debug:
+        msg: "{{ cli_result.updates }}"

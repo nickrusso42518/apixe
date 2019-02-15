@@ -1,0 +1,9 @@
+---
+all:
+  children:
+    routers:
+      children:
+        ios:
+          hosts:
+            csr1:
+              ansible_host: "ip-172-31-83-92.ec2.internal"

@@ -1,0 +1,69 @@
+---
+- name: "Parser metadata"
+  parser_metadata:
+    version: 1.0
+    command: "show running-config | section ^vrf definition"
+    network_os: ios
+
+- name: "Match each VRF"
+  pattern_match:
+    regex: "vrf\\s+definition"
+    match_all: yes
+    match_greedy: yes
+  register: vrf_section
+
+- name: "Match VRF components"
+  pattern_group:
+    - name: "Parse VRF name"
+      pattern_match:
+        regex: "vrf\\s+definition\\s+(\\S+)"
+        content: "{{ item }}"
+      register: vrf_name
+
+    - name: "Parse imported RTs"
+      pattern_match:
+        regex: "route-target\\s+import\\s+(\\S+)"
+        content: "{{ item }}"
+        match_all: true
+      register: vrf_rti
+
+    - name: "Parse exported RTs"
+      pattern_match:
+        regex: "route-target\\s+export\\s+(\\S+)"
+        content: "{{ item }}"
+        match_all: true
+      register: vrf_rte
+  loop: "{{ vrf_section }}"
+  register: vrf_components
+
+- name: "Create JSON structure"
+  json_template:
+    template:
+      - key: "{{ item.vrf_name.matches[0] }}"
+        object:
+          - key: route_import
+            value: "{{ item.vrf_rti | map(attribute='matches') | list }}"
+          - key: route_export
+            value: "{{ item.vrf_rte | map(attribute='matches') | list }}"
+  loop: "{{ vrf_components }}"
+  export: true
+  export_as: dict
+  register: vrf_data
+
+        # "VPN1": {
+            # "route_export": [
+                # "65000:100"
+            # ],
+            # "route_import": [
+                # "65000:200"
+            # ]
+        # },
+        # "VPN2": {
+            # "route_export": [
+                # "65000:100"
+            # ],
+            # "route_import": [
+                # "65000:200"
+            # ]
+        # }
+# 

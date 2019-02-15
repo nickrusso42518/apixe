@@ -5,7 +5,6 @@ vrfs:
     rd: "1:1"
     route_import:
       - "100:1"
-      - "100:2"
     route_export:
       - "100:3"
   - name: "VPN2"
