@@ -12,18 +12,12 @@
                 "route-target": {
                     "export": [
                         {
-                            "asn-ip": "100:3"
-                        },
-                        {
-                            "asn-ip": "100:4"
+                            "asn-ip": "100:2"
                         }
                     ],
                     "import": [
                         {
                             "asn-ip": "100:1"
-                        },
-                        {
-                            "asn-ip": "100:2"
                         }
                     ]
                 }

@@ -1,8 +1,54 @@
 ---
-- name: "PLAY 1: Infrastructure-as-code using NETCONF"
+- name: "PLAY 1: Perform SSH/CLI based setup for NETCONF"
+  hosts: routers
+  connection: network_cli
+  tasks:
+    - name: "TASK 1: Enable NETCONF on routers"
+      ios_config:
+        commands: "netconf-yang"
+        save_when: changed
+
+    - name: "TASK 2: Ensure NETCONF is properly enabled"
+      ios_command:
+        commands: "show netconf-yang datastores"
+        interval: 2
+        wait_for:
+          - "result[0] contains running"
+
+- name: "PLAY 2: Infrastructure-as-code using NETCONF"
   hosts: routers
   connection: netconf
   tasks:
     - name: "TASK 1: Update VRF config with NETCONF"
       netconf_config:
         content: "{{ lookup('template', 'templates/vpn.j2') }}"
+
+    - name: "TASK 2: Save configuration"
+      netconf_rpc:
+        xmlns: "http://cisco.com/yang/cisco-ia"
+        rpc: "save-config"
+      ignore_errors: true  # DANGEROUS!
+
+    - name: "TASK 3: Get VRF config with NETCONF"
+      netconf_get:
+        source: running
+        lock: always
+        filter: "<native><vrf></vrf></native>"
+      register: nc_vrf
+
+    - name: "TASK 3: Format XML for easy viewing"
+      xml:
+        xmlstring: "{{ nc_vrf.stdout }}"
+        pretty_print: true
+      register: pretty_config
+      changed_when: false
+
+    - name: "TASK 3: Ensure vrf_configs/ folder exists"
+      file:
+        path: "{{ playbook_dir }}/vrf_configs"
+        state: directory
+
+    - name: "TASK 4: Write XML to disk"
+      copy:
+        content: "{{ pretty_config.xmlstring }}"
+        dest: "vrf_configs/{{ inventory_hostname }}_netconf.xml"
