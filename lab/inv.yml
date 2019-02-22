@@ -1,0 +1,11 @@
+---
+all:
+  children:
+    routers:
+      hosts:
+        csr1:
+          ansible_host: "172.31.83.92"
+        csr2:
+          ansible_host: "172.31.83.8"
+        csr3:
+          ansible_host: "172.31.82.119"
