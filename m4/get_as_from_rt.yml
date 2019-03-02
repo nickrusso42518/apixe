@@ -3,7 +3,7 @@
   hosts: routers
   connection: local
   tasks:
-    - name: "TASK 1: Get BGP AS from VPN1 import RTs"
+    - name: "TASK 1: Get BGP AS from POLICE VRF import RTs"
       set_fact:
         bgp_as_list: "{{ vrfs[0].route_import | bgp_as_from_rt }}"
 

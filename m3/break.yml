@@ -2,15 +2,9 @@
 - hosts: routers
   connection: network_cli
   tasks:
-    - ios_command:
-        commands:
-          - "show start | section vrf definition VPN2"
-      register: c
-    - debug: var=c.stdout_lines[0]
-
     - ios_config:
         commands:
-          - "vrf definition VPN2"
-          - "description test"
+          - "vrf definition CHEMICAL"
+          - "no route-target"
         match: none
         save_when: always

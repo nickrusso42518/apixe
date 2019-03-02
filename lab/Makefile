@@ -4,6 +4,10 @@
 .PHONY: all
 all: lint run
 
+.PHONY: install
+install:
+	pip install -r requirements.txt
+
 .PHONY: lint
 lint:
 	find . -name "*.yml" | xargs yamllint -s

@@ -1,0 +1,25 @@
+---
+# vrf definition POLICE
+#  rd 65000:1
+#  description POLICE DEPARTMENT
+#  route-target export 65000:1
+#  route-target import 65000:1
+# vrf definition CHEMICAL
+#  rd 65000:2
+#  description CHEMICAL ENGINEERING FIRM
+#  route-target export 65000:2
+#  route-target import 65000:2
+# vrf definition CHEM_MGMT
+#  rd 65000:3
+#  description CHEMICAL ENGINEERING MANAGER
+#  route-target export 65000:3
+#  route-target import 65000:4
+vrfs:
+  - name: "POLICE"
+    description: "POLICE DEPARTMENT"
+    rd: "65000:1"
+    route_import:
+      - "65000:1"
+      - "7:1"
+      - "456:1"
+    route_export: []

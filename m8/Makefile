@@ -4,17 +4,12 @@
 .PHONY: all
 all: lint unit run
 
-.PHONY: install
-install:
-	pip install -r requirements.txt
-
 .PHONY: lint
 lint:
 	@echo "Starting  lint"
-	find . -name "*.yml" | xargs yamllint -s
+	find . -name "*.yml" | xargs ansible-lint
 	find . -name "*.py" | xargs pylint
 	find . -name "*.py" | xargs bandit
-	ansible-lint full_iac.yml
 	@echo "Completed lint"
 
 .PHONY:

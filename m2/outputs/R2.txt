@@ -1,0 +1,23 @@
+vrf definition CHEMICAL
+ description CHEMICAL ENGINEERING FIRM
+ rd 65000:2
+ route-target export 65000:2
+ route-target export 65000:4
+ route-target import 65000:2
+ route-target import 65000:3
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+vrf definition POLICE
+ description POLICE DEPARTMENT
+ rd 65000:1
+ route-target export 65000:1
+ route-target import 65000:1
+ !
+ address-family ipv4
+ exit-address-family
+vrf definition VPN1
+vrf definition VPN2
