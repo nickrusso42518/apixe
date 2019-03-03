@@ -43,12 +43,12 @@
       register: pretty_config
       changed_when: false
 
-    - name: "TASK 3: Ensure vrf_configs/ folder exists"
+    - name: "TASK 3: Ensure outputs/ folder exists"
       file:
-        path: "{{ playbook_dir }}/vrf_configs"
+        path: "{{ playbook_dir }}/outputs"
         state: directory
 
     - name: "TASK 4: Write XML to disk"
       copy:
         content: "{{ pretty_config.xmlstring }}"
-        dest: "vrf_configs/{{ inventory_hostname }}_netconf.xml"
+        dest: "outputs/{{ inventory_hostname }}_netconf.xml"

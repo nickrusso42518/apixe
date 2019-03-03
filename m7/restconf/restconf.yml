@@ -69,12 +69,12 @@
         validate_certs: false
       register: rc_vrf
 
-    - name: "TASK 5: Ensure vrf_configs/ folder exists"
+    - name: "TASK 5: Ensure outputs/ folder exists"
       file:
-        path: "{{ playbook_dir }}/vrf_configs"
+        path: "{{ playbook_dir }}/outputs"
         state: directory
 
     - name: "TASK 6: Write JSON to disk"
       copy:
         content: "{{ rc_vrf.json | to_nice_json }}"
-        dest: "vrf_configs/{{ inventory_hostname }}_restconf.json"
+        dest: "outputs/{{ inventory_hostname }}_restconf.json"

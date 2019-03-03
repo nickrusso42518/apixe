@@ -7,3 +7,6 @@ functional SSH access.
 This playbook is *not* an example of well-designed infrastructure as code
 because it is the starting point for learning. If it is built with too many
 abstractions, it will not be useful as an aid to course setup.
+
+The `requirements.txt` installs all necessary packages for all modules in
+this course to operate.
