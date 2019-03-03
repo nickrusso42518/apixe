@@ -12,7 +12,7 @@
       debug:
         msg: "{{ cli_result }}"
 
-    - name: "Create outputs/ folder"
+    - name: "TASK 3: Create outputs/ folder"
       file:
         path: "outputs"
         state: directory
