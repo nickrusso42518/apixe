@@ -1,9 +1,9 @@
 ---
-- name: "PLAY 1: Manage VPN config with ios_config and jinja2"
+- name: "PLAY 1: Manage VPNs with ios_config and jinja2"
   hosts: routers
   connection: network_cli
   tasks:
-    - name: "TASK 1: Apply VPN using SSH/CLI"
+    - name: "TASK 1: Apply IOS VPN config via SSH/CLI"
       ios_config:
         src: "templates/vpn.j2"
         save_when: changed
