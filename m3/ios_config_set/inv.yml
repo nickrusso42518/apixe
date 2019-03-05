@@ -4,4 +4,4 @@ all:
     routers:
       hosts:
         R1:
-        R4:
+        R2:
