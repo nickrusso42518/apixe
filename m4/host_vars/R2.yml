@@ -1,16 +1,4 @@
 ---
-# vrf definition POLICE
-#  rd 65000:1
-#  description POLICE DEPARTMENT
-#  route-target export 65000:1
-#  route-target import 65000:1
-# vrf definition CHEMICAL
-#  rd 65000:2
-#  description CHEMICAL ENGINEERING FIRM
-#  route-target export 65000:2
-#  route-target export 65000:4
-#  route-target import 65000:2
-#  route-target import 65000:3
 vrfs:
   - name: "POLICE"
     description: "POLICE DEPARTMENT"

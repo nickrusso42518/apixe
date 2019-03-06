@@ -20,24 +20,9 @@ class FilterModule:
         name exposed to playbooks and the value is the function.
         """
         return {
-            'bgp_as_from_rt': FilterModule.bgp_as_from_rt,
             'ios_vrf_rt': FilterModule.ios_vrf_rt,
             'rt_diff': FilterModule.rt_diff
         }
-
-
-    @staticmethod
-    def bgp_as_from_rt(rt_list):
-        """
-        Throwaway filter for framework testing used to return the
-        characters before the colon in route-targets.
-        """
-        bgp_as_list = []
-        for my_rt in rt_list:
-            rt_halves = my_rt.split(':')
-            bgp_as_list.append(int(rt_halves[0]))
-
-        return bgp_as_list
 
 
     @staticmethod
