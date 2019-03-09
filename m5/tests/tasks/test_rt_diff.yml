@@ -1,5 +1,5 @@
 ---
-- name: "Store IOS VRF text"
+- name: "Mock parsed run_vrf_dict from parser"
   set_fact:
     run_vrf_dict:
       VPN1:  # missing export
@@ -18,6 +18,8 @@
           - "65000:333"
         route_export: []
 
+- name: "Mock int_vrf_list state from vars files"
+  set_fact:
     int_vrf_list:
       - name: "VPN1"
         description: "first VRF"
@@ -41,7 +43,7 @@
         route_export:
           - "65000:1"
 
-- name: "Find RT differences"
+- name: "Find route-target differences"
   set_fact:
     rt_updates: "{{ int_vrf_list | rt_diff(run_vrf_dict) }}"
 
