@@ -1,5 +1,5 @@
 ---
-- name: "PLAY 1: Advanced-level infrastructure-as-code"
+- name: "PLAY 1: Set theory based SSH/CLI infrastructure-as-code"
   hosts: routers
   connection: network_cli
   tasks:
@@ -20,6 +20,7 @@
       ios_config:
         src: "templates/vpn.j2"
         save_when: changed
+        running_config: "{{ vrf_config.stdout[0] }}"
       notify: config_changed
       register: cli_result
 
