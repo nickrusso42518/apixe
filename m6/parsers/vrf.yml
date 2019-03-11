@@ -10,7 +10,7 @@
     regex: "vrf\\s+definition"
     match_all: true
     match_greedy: true
-  register: vrf_section
+  register: vrf_list
 
 - name: "Match VRF components"
   pattern_group:
@@ -18,33 +18,33 @@
       pattern_match:
         regex: "vrf\\s+definition\\s+(\\S+)"
         content: "{{ item }}"
-      register: vrf_name
+      register: name
 
     - name: "Parse imported RTs"
       pattern_match:
-        regex: "route-target\\s+import\\s+(\\S+)"
+        regex: "route-target\\s+import\\s+(\\d+:\\d+)"
         content: "{{ item }}"
         match_all: true
-      register: vrf_rti
+      register: rti_matches
 
     - name: "Parse exported RTs"
       pattern_match:
-        regex: "route-target\\s+export\\s+(\\S+)"
+        regex: "route-target\\s+export\\s+(\\d+:\\d+)"
         content: "{{ item }}"
         match_all: true
-      register: vrf_rte
-  loop: "{{ vrf_section }}"
+      register: rte_matches
+  loop: "{{ vrf_list }}"
   register: vrf_components
 
 - name: "Create JSON structure"
   json_template:
     template:
-      - key: "{{ item.vrf_name.matches[0] }}"
+      - key: "{{ item.name.matches[0] }}"
         object:
           - key: route_import
-            value: "{{ item.vrf_rti | map(attribute='matches') | list }}"
+            value: "{{ item.rti_matches | map(attribute='matches') | list }}"
           - key: route_export
-            value: "{{ item.vrf_rte | map(attribute='matches') | list }}"
+            value: "{{ item.rte_matches | map(attribute='matches') | list }}"
   loop: "{{ vrf_components }}"
   export: true
   export_as: dict
