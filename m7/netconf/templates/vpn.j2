@@ -11,16 +11,16 @@
           <ipv6/>
         </address-family>
         <route-target>
-{% for rte in vrf.route_export %}
+{%  for rte in vrf.route_export %}
           <export>
             <asn-ip>{{ rte }}</asn-ip>
           </export>
-{% endfor %}
-{% for rti in vrf.route_import %}
+{%  endfor %}
+{%  for rti in vrf.route_import %}
           <import>
             <asn-ip>{{ rti }}</asn-ip>
           </import>
-{% endfor %}
+{%  endfor %}
         </route-target>
       </definition>
 {% endfor %}

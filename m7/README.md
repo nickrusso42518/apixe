@@ -1,5 +1,6 @@
 # Module 7
 New ways to build infrastructure as code using new APIs on modern routers.
+No more using SSH with "screen scraping" to manage devices.
 
 The APIs include:
 
