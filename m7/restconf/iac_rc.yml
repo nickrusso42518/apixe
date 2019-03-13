@@ -17,7 +17,6 @@
         body_format: json
         body: "{{ body }}"
         validate_certs: false
-        # return_content: true
         status_code:
           - 200  # OK
           - 204  # NO CONTENT
