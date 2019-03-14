@@ -1,5 +1,5 @@
 ---
-- name: "PLAY 1: Advanced-level infrastructure-as-code"
+- name: "PLAY 1: Set theory based SSH/CLI infrastructure-as-code"
   hosts: routers
   connection: network_cli
   tasks:
