@@ -3,6 +3,18 @@
   hosts: routers
   connection: network_cli
   tasks:
+    - name: "TASK 0: Input data validation"
+      assert:
+        that:
+          - "item.name is defined"
+          - "item.rd is defined"
+          - "item.description is defined"
+          - "item.route_import is defined"
+          - "item.route_export is defined"
+        msg: "Invalid VRF dictionary; check inputs"
+      loop: "{{ vrfs }}"
+      delegate_to: localhost
+
     - name: "TASK 1: Get router configuration"
       ios_command:
         commands: "show running-config | section ^vrf_definition"
