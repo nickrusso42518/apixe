@@ -15,10 +15,10 @@
       debug:
         msg: "{{ cli_result.commands }}"
 
-    - name: "HANDLER 2: Wait 60 seconds for convergence"
+    - name: "HANDLER 2: Wait 90 seconds for convergence"
       listen: config_changed
       pause:
-        seconds: 60
+        seconds: 90
 
 - name: "PLAY 2: Check pings on R1"
   hosts: R1

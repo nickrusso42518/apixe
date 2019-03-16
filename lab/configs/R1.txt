@@ -1,3 +1,8 @@
+netconf-yang
+restconf
+ip tcp mss 1400
+ip ssh logging events
+mpls ldp router-id Loopback0
 vrf definition POLICE
  rd 65000:1
  description POLICE DEPARTMENT
