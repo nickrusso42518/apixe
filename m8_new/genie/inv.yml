@@ -1,0 +1,10 @@
+---
+all:
+  children:
+    routers:
+      hosts:
+        R1:
+          ansible_host: "ios-xe-mgmt-latest.cisco.com"  # IOS-XE 16.11.01a
+        R2:
+          ansible_host: "ios-xe-mgmt.cisco.com"  # IOS-XE 16.9.3
+...

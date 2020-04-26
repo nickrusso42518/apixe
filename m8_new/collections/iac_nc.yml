@@ -11,7 +11,8 @@
     # Issue fixed shortly after submission! :)
     # https://github.com/ansible/ansible/issues/53236
     - name: "TASK 2: Save configuration"
-      netconf_rpc:
+      # netconf_rpc:
+      ansible.netcommon.netconf_rpc:
         xmlns: "http://cisco.com/yang/cisco-ia"
         rpc: "save-config"
 ...
