@@ -4,7 +4,9 @@
   connection: network_cli
   tasks:
     - name: "TASK 1: Get VRF config from routers"
-      ios_command:
+      # ios_command:
+      # Use fully-qualified collection name (FQCN) technique
+      cisco.ios.ios_command:
         commands: "show running-config | section vrf definition"
       register: cli_result
 

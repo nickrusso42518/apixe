@@ -4,9 +4,10 @@
   connection: network_cli
   tasks:
     - name: "TASK 1: Apply IOS VPN config via SSH/CLI"
-      ios_config:
-        src: "templates/vpn.j2"
-        save_when: changed
+      # ios_config:
+      cisco.ios.ios_config:
+        src: "templates/cli_vpn.j2"
+        save_when: never  # changed
       notify: config_changed
       register: cli_result
 
