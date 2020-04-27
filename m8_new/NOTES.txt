@@ -38,3 +38,14 @@ Using module file /home/ec2-user/.ansible/collections/ansible_collections/ansibl
 Using module file /home/ec2-user/.ansible/collections/ansible_collections/ansible/netcommon/plugins/modules/netconf_config.py
 Using module file /home/ec2-user/environments/ans297/lib/python3.7/site-packages/ansible/modules/network/netconf/netconf_rpc.py
 Using module file /home/ec2-user/environments/ans297/lib/python3.7/site-packages/ansible/modules/network/netconf/netconf_rpc.py
+
+
+unable to load netconf plugin for network_os ios, falling back to default plugin
+
+- hosts: arista
+  module_defaults:
+    eos_facts:
+      gather_subset: min
+      gather_network_resources:
+      - interfaces
+  gather_facts: True

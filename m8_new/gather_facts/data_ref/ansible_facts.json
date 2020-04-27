@@ -1,0 +1,152 @@
+{
+  "_facts_gathered": true,
+  "net_all_ipv4_addresses": [
+    "10.10.20.48",
+    "192.168.1.1",
+    "192.168.2.1",
+    "192.168.3.1",
+    "74.74.74.1"
+  ],
+  "net_all_ipv6_addresses": [],
+  "net_api": "cliconf",
+  "net_config": "!\n! Last configuration change at 00:35:19 UTC Mon Apr 27 2020 by developer\n!\nversion 16.11\nservice timestamps debug datetime msec\nservice timestamps log datetime msec\nservice call-home\nplatform qfp utilization monitor load 80\nno platform punt-keepalive disable-kernel-core\nplatform console virtual\n!\nhostname csr1000v-1\n!\nboot-start-marker\nboot-end-marker\n!\n!\nvrf definition CHEMICAL\n description CHEMICAL ENGINEERING FIRM\n rd 65000:2\n route-target export 65000:2\n route-target import 65000:2\n !\n address-family ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n!\nvrf definition CHEM_MGMT\n description CHEMICAL ENGINEERING MANAGER\n rd 65000:3\n route-target export 65000:3\n route-target import 65000:4\n !\n address-family ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n!\nvrf definition POLICE\n description POLICE DEPARTMENT\n rd 65000:1\n route-target export 65000:1\n route-target import 65000:1\n !\n address-family ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n!\nno logging console\nenable secret 9 $9$PvdeTeuxxh0ygk$PSg0GTG2I7bluI51e.IvfEu2uxy56e/9/PgqzFUklso\n!\nno aaa new-model\ncall-home\n ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com\n ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.\n contact-email-addr sch-smart-licensing@cisco.com\n profile \"CiscoTAC-1\"\n  active\n  destination transport-method http\n  no destination transport-method email\n!\n!\n!\n!\n!\n!\n!\nip domain name abc.inc\n!\n!\n!\nlogin on-success log\n!\n!\n!\n!\n!\n!\n!\nsubscriber templating\n! \n! \n! \n! \n!\n!\nipv6 unicast-routing\nmultilink bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ncrypto pki trustpoint TP-self-signed-1059130051\n enrollment selfsigned\n subject-name cn=IOS-Self-Signed-Certificate-1059130051\n revocation-check none\n rsakeypair TP-self-signed-1059130051\n!\ncrypto pki trustpoint SLA-TrustPoint\n enrollment pkcs12\n revocation-check crl\n!\n!\ncrypto pki certificate chain TP-self-signed-1059130051\n certificate self-signed 01\n  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 \n  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 \n  69666963 6174652D 31303539 31333030 3531301E 170D3139 30353135 31353532 \n  34345A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 \n  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 30353931 \n  33303035 31308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 \n  0A028201 01009DB5 CB46A2CB EF798209 B9E60F24 2AD4F63B 7FAD32C9 DF508833 \n  27FE8781 CEBE363E 98BC68CB BA681F3A 0C040D0E 138CB708 A63FC4A3 C89DF4F8 \n  7CEA5995 E2ED50A7 AD593D54 95F91777 63F014AB AA24DC69 94219D45 80C69618 \n  D7353920 3FF45907 A639EC6B 32ED18D5 C943BF84 BCF0EDC6 C9DA7D92 3FA2E781 \n  4430FC04 94DC7E36 EB55D92A 87996A0B 53139F6D 980F37DC 1FD6A908 9530A59C \n  024C3937 8FC6B165 6DDD78AA CBDE26B6 22A3B2CF 1617367F 64F56E10 056873D3 \n  61BAF65D 9C94D472 3A43EE5B 297DEAB7 5AF892D4 1884C715 BB561B42 D4F22E74 \n  7DEC1BB3 D8FCD37E E5682FF2 60061E76 DD1BDCEE 0C479896 A013E99D 81C58863 \n  46BE7467 F4150203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF \n  301F0603 551D2304 18301680 14A036FC 136C015A DA5E90D7 4CA8FCCA 0FD3AB11 \n  4E301D06 03551D0E 04160414 A036FC13 6C015ADA 5E90D74C A8FCCA0F D3AB114E \n  300D0609 2A864886 F70D0101 05050003 82010100 125F8C6F 10160B1C CA98F2D9 \n  34060A9A 2C852783 74940351 A5C3DCC4 18C56177 201DB0FF FD36B74E CC837517 \n  2131BD4B 221F0821 A936D2CA DC9A73A9 0D1880FD F20C4E92 7B749C16 D2B3BC2D \n  7F65B575 44B9A198 FE4F294C A644D77A E68BC8E6 0E0B8223 E20752A5 B1DD7F94 \n  C648B50E 383DE28C 8CBE7144 9737DF7E 562F4937 F981558F 6628D7E9 D92CD668 \n  783DA025 9547FFC8 3F850FF5 6307126D 8D7AC8F6 BBA1915C F4A3AF91 C8D4BC29 \n  7F4B5902 F77E0135 9C91120B 8AF47B45 AF71BB7E FCCEF0CF 20266FA8 DD032D0A \n  1909438C B48A4378 42C78B33 84B3C73D 7B847DBD 7F540522 4F708603 666D8609 \n  11D3D218 05E1A2BF C98EDE32 7F9F0937 DBAF8AA9\n  \tquit\ncrypto pki certificate chain SLA-TrustPoint\n certificate ca 01\n  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 \n  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 \n  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 \n  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 \n  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 \n  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 \n  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D \n  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 \n  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE \n  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC \n  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 \n  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 \n  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 \n  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 \n  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 \n  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 \n  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 \n  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 \n  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B \n  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 \n  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C \n  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B \n  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 \n  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB \n  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 \n  D697DF7F 28\n  \tquit\n!\nlicense udi pid CSR1000V sn 97X7V6ANB2G\nlicense boot level ax\ndiagnostic bootup level minimal\n!\nspanning-tree extend system-id\nmemory free low-watermark processor 80557\n!\nnetconf-yang\n!\nrestconf\n!\nusername developer privilege 15 secret 9 $9$fhUXi6Xg438iAE$..VhXRCHiDQy3K2zmZUl9iZLbQJ9wpUtQZwQxSRESc2\nusername cisco privilege 15 secret 9 $9$COf3Q4xfzT.JxE$L3hvSkDv874Qrh8Hzdv/rPQjLNOjreYG2ocffHG7rls\nusername root privilege 15 secret 9 $9$FfUDIPBFcs03AE$MyLIWEuiRle8p3yGflAGTcrJA6BUUh/oWtyyfoMQXSI\n!\nredundancy\n!\n!\n!\n!\n!\n!\ncdp run\n! \n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n! \n! \n!\n!\ninterface Loopback1\n ip address 192.168.1.1 255.255.255.0\n!\ninterface Loopback2\n ip address 192.168.2.1 255.255.255.0\n!\ninterface Loopback3\n ip address 192.168.3.1 255.255.255.0\n!\ninterface Loopback74\n description Testing Golang RestConf\n ip address 74.74.74.1 255.255.255.255\n!\ninterface GigabitEthernet1\n description MANAGEMENT INTERFACE - DON'T TOUCH ME\n ip address 10.10.20.48 255.255.255.0\n negotiation auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet2\n description Network Interface\n no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\ninterface GigabitEthernet3\n description Network Interface\n no ip address\n shutdown\n negotiation auto\n no mop enabled\n no mop sysid\n!\n!\nrouter eigrp test\n !\n address-family ipv4 unicast autonomous-system 100\n  !\n  af-interface default\n   authentication mode md5\n   passive-interface\n  exit-af-interface\n  !\n  topology base\n   variance 3\n   redistribute connected\n  exit-af-topology\n  network 192.168.1.0\n  eigrp router-id 2.2.2.2\n  eigrp stub static summary\n exit-address-family\n!\nrouter ospf 74\n router-id 74.74.74.1\n network 74.74.74.1 0.0.0.0 area 74\n!\nip forward-protocol nd\nip http server\nip http authentication local\nip http secure-server\nip route 0.0.0.0 0.0.0.0 GigabitEthernet1 10.10.20.254\n!\nip ssh rsa keypair-name ssh-key\nip ssh version 2\nip scp server enable\n!\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\n!\n!\nbanner motd ^C\nWelcome to the DevNet Sandbox for CSR1000v and IOS XE\n\nThe following programmability features are already enabled:\n  - NETCONF\n  - RESTCONF\n\nThanks for stopping by.\n^C\n!\nline con 0\n exec-timeout 0 0\n stopbits 1\nline vty 0 4\n login local\n transport input ssh\n!\nntp authentication-key 42 md5 15132505072F002131 7\nntp authenticate\nntp trusted-key 42\n!\n!\n!\n!\n!\nend",
+  "net_filesystems": [
+    "bootflash:"
+  ],
+  "net_filesystems_info": {
+    "bootflash:": {
+      "spacefree_kb": 6865560.0,
+      "spacetotal_kb": 7712692.0
+    }
+  },
+  "net_gather_network_resources": [],
+  "net_gather_subset": [
+    "default",
+    "interfaces",
+    "config",
+    "hardware"
+  ],
+  "net_hostname": "csr1000v-1",
+  "net_image": "bootflash:packages.conf",
+  "net_interfaces": {
+    "GigabitEthernet1": {
+      "bandwidth": 1000000,
+      "description": "MANAGEMENT INTERFACE - DON'T TOUCH ME",
+      "duplex": "Full",
+      "ipv4": [
+        {
+          "address": "10.10.20.48",
+          "subnet": "24"
+        }
+      ],
+      "lineprotocol": "up",
+      "macaddress": "0050.56bb.e99c",
+      "mediatype": "Virtual",
+      "mtu": 1500,
+      "operstatus": "up",
+      "type": "CSR vNIC"
+    },
+    "GigabitEthernet2": {
+      "bandwidth": 1000000,
+      "description": "Network Interface",
+      "duplex": "Full",
+      "ipv4": [],
+      "lineprotocol": "down",
+      "macaddress": "0050.56bb.771a",
+      "mediatype": "Virtual",
+      "mtu": 1500,
+      "operstatus": "administratively down",
+      "type": "CSR vNIC"
+    },
+    "GigabitEthernet3": {
+      "bandwidth": 1000000,
+      "description": "Network Interface",
+      "duplex": "Full",
+      "ipv4": [],
+      "lineprotocol": "down",
+      "macaddress": "0050.56bb.eb1e",
+      "mediatype": "Virtual",
+      "mtu": 1500,
+      "operstatus": "administratively down",
+      "type": "CSR vNIC"
+    },
+    "Loopback1": {
+      "bandwidth": 8000000,
+      "description": null,
+      "duplex": null,
+      "ipv4": [
+        {
+          "address": "192.168.1.1",
+          "subnet": "24"
+        }
+      ],
+      "lineprotocol": "up",
+      "macaddress": null,
+      "mediatype": null,
+      "mtu": 1514,
+      "operstatus": "up",
+      "type": null
+    },
+    "Loopback2": {
+      "bandwidth": 8000000,
+      "description": null,
+      "duplex": null,
+      "ipv4": [
+        {
+          "address": "192.168.2.1",
+          "subnet": "24"
+        }
+      ],
+      "lineprotocol": "up",
+      "macaddress": null,
+      "mediatype": null,
+      "mtu": 1514,
+      "operstatus": "up",
+      "type": null
+    },
+    "Loopback3": {
+      "bandwidth": 8000000,
+      "description": null,
+      "duplex": null,
+      "ipv4": [
+        {
+          "address": "192.168.3.1",
+          "subnet": "24"
+        }
+      ],
+      "lineprotocol": "up",
+      "macaddress": null,
+      "mediatype": null,
+      "mtu": 1514,
+      "operstatus": "up",
+      "type": null
+    },
+    "Loopback74": {
+      "bandwidth": 8000000,
+      "description": "Testing Golang RestConf",
+      "duplex": null,
+      "ipv4": [
+        {
+          "address": "74.74.74.1",
+          "subnet": "32"
+        }
+      ],
+      "lineprotocol": "up",
+      "macaddress": null,
+      "mediatype": null,
+      "mtu": 1514,
+      "operstatus": "up",
+      "type": null
+    }
+  },
+  "net_iostype": "IOS-XE",
+  "net_memfree_mb": 2073291.0,
+  "net_memtotal_mb": 2378439.3125,
+  "net_model": "CSR1000V",
+  "net_neighbors": {},
+  "net_python_version": "3.7.3",
+  "net_serialnum": "97X7V6ANB2G",
+  "net_system": "ios",
+  "net_version": "16.11.01a",
+  "network_resources": {}
+}

@@ -2,6 +2,9 @@
 - name: "PLAY 1: Manage VPNs with ios_config and jinja2"
   hosts: routers
   connection: network_cli
+  vars:
+    ansible_network_os: "ios"
+    ansible_port: 8181
   tasks:
     - name: "TASK 1: Apply IOS VPN config via SSH/CLI"
       # ios_config:
