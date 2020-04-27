@@ -2,6 +2,8 @@
 - name: "PLAY 1: Capture and store VRF config"
   hosts: routers
   connection: network_cli
+  vars:
+    ansible_port: 8181
   tasks:
     - name: "TASK 1: Get VRF config from routers"
       # ios_command:
