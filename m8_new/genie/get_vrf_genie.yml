@@ -1,12 +1,18 @@
 ---
 - name: "PLAY 1: Collect and store VRF data from routers"
   hosts: routers
+  connection: network_cli
+  vars:
+    ansible_port: 8181
   tasks:
     - name: "TASK 1: Send '{{ vrf_command }}' to routers"
       ios_command:
         commands: "{{ vrf_command }}"
       register: vrf_output
 
+    # Check the docs to see if a specific parser exists
+    # https://pubhub.devnetcloud.com/media/genie-feature-browser/docs/#/
+    # Click "Parsers" then search
     - name: "TASK 2: Parse output into structured data using Genie"
       set_fact:
         vrf_data: >-

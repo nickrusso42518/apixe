@@ -3,6 +3,6 @@ ansible_python_interpreter: "/usr/bin/env python"
 ansible_network_os: "ios"
 ansible_user: "developer"
 ansible_password: "C1sco12345"
-ansible_port: 8181
 
+# Reduce Genie copy/paste errors
 vrf_command: "show vrf detail"
