@@ -4,7 +4,6 @@
   connection: netconf
   vars:
     ansible_network_os: "default"
-    ansible_port: 10000
   tasks:
     - name: "TASK 1: Update VRF config with NETCONF"
       # netconf_config:
@@ -18,4 +17,3 @@
       ansible.netcommon.netconf_rpc:
         xmlns: "http://cisco.com/yang/cisco-ia"
         rpc: "save-config"
-...

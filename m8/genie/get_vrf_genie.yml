@@ -2,8 +2,6 @@
 - name: "PLAY 1: Collect and store VRF data from routers"
   hosts: routers
   connection: network_cli
-  vars:
-    ansible_port: 8181
   tasks:
     - name: "TASK 1: Send '{{ vrf_command }}' to routers"
       ios_command:
@@ -29,4 +27,3 @@
       copy:
         content: "{{ vrf_data | to_nice_json(indent=2) }}"
         dest: "outputs/{{ inventory_hostname }}.json"
-...

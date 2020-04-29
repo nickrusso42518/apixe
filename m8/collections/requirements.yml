@@ -4,4 +4,3 @@
 collections:
   - "cisco.ios"
   - "ansible.netcommon"
-...

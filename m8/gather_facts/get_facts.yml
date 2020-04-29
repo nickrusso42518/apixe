@@ -10,4 +10,3 @@
     - name: "TASK 2: Reveal memory utilization"
       debug:
         msg: "{{ 100 - (free_mem | int * 100) // total_mem | int }}%"
-...
